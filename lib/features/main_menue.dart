@@ -4,27 +4,12 @@ import 'package:food_delivery_app/core/Widgets/main_heading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/Theme/AppColors.dart';
 import '../../core/Widgets/app_text_field.dart';
+import '../../core/services/menue_services.dart';
 
 class MainMenue extends StatelessWidget {
   const MainMenue({super.key});
-  final List<Map<String, String>> food = const [
-    {
-      'image': 'assets/images/burgerPic.png',
-       'name': 'Burgers'},
-    {
-      'image': 'assets/images/sandwich.png', 
-      'name': 'Sandwich'},
-    {
-      'image':'assets/images/image.png',
-      'name':'Burger with Fries'
-    }
-  ];
   @override
   Widget build(BuildContext context) {
-    // final Food = [
-    //   food(image: 'assets/images/bugerPic.png', name: 'Burgers'),
-    //   food(image: 'assets/images/sandwich', name: 'Sandwhiches'),
-    // ];
     return Scaffold(
       backgroundColor: AppColors.textLight,
       bottomNavigationBar: const BottomNavBar(currentIndex: 0),
@@ -37,21 +22,33 @@ class MainMenue extends StatelessWidget {
               children: [
                 MainHeading(),
                 SizedBox(height: 20),
-                GridView.builder(
-                  itemCount: food.length,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12,
+                FutureBuilder(
+                  future: MenueServices.loadMenu(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasError) {
+                      return const Center(child: Text('Failed to load menu'));
+                    }
+                    final food = snapshot.data ?? [];
+                    return GridView.builder(
+                      itemCount: food.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 12,
 
-                    mainAxisSpacing: 12,
-                    mainAxisExtent: 170,
-                  ),
-                  itemBuilder: (context, index) {
-                    return MianCard(
-                      image: food[index]['image']!,
-                      name: food[index]['name']!,
+                        mainAxisSpacing: 12,
+                        mainAxisExtent: 170,
+                      ),
+                      itemBuilder: (context, index) {
+                        return MianCard(
+                          image: food[index]['image']!,
+                          name: food[index]['name']!,
+                        );
+                      },
                     );
                   },
                 ),

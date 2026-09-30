@@ -1,0 +1,42 @@
+[
+    {
+    "id":1,
+    "name":"Burger",
+    "image":"assets/images/burgerPic.png"
+},
+{
+    "id":2,
+    "name":"Sandwich",
+    "image":"assets/images/sandwich.png"
+},
+{
+    "id":3,
+    "name":"Burger with fries",
+    "image":"assets/images/image.png"
+},
+{
+    "id":4,
+    "name":"Chicken Wings",
+    "image":"assets/images/ChickenWings.png"
+},
+{
+    "id":5,
+    "name":"Beef Burger",
+    "image":"assets/images/beefBurger.png"
+},
+{
+    "id":6,
+    "name":"Pizza",
+    "image":"assets/images/pizza.png"
+},
+{
+    "id":7,
+    "name":"Double Decker",
+    "image":"assets/images/doublePattyBurger.png"
+},
+{
+    "id":8,
+    "name":"Loaded Sanwich",
+    "image":"assets/images/LoadedSandwich.png"
+}
+]
